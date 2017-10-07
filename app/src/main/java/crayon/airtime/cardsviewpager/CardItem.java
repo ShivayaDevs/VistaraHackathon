@@ -3,6 +3,7 @@ package crayon.airtime.cardsviewpager;
 
 public class CardItem {
 
+
     private int mTextResource;
     private int mTitleResource;
 

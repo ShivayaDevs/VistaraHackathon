@@ -1,10 +1,16 @@
 package crayon.airtime.cardsviewpager;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,9 +24,12 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private List<CardItem> mData;
     private float mBaseElevation;
 
-    public CardPagerAdapter() {
+    Context context;
+
+    public CardPagerAdapter(Context c) {
         mData = new ArrayList<>();
         mViews = new ArrayList<>();
+        context = c;
     }
 
     public void addCardItem(CardItem item) {
@@ -71,10 +80,17 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     }
 
     private void bind(CardItem item, View view) {
-        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
-        TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
-        titleTextView.setText(item.getTitle());
-        contentTextView.setText(item.getText());
+//        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
+//        TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
+//        titleTextView.setText(item.getTitle());
+//        contentTextView.setText(item.getText());
+        ImageView dpView = view.findViewById(R.id.dpView);
+        Bitmap dp = BitmapFactory.decodeResource(context.getResources(), R.mipmap
+                .ic_launcher_round);
+        RoundedBitmapDrawable roundedImage = RoundedBitmapDrawableFactory.create(context
+                .getResources(), dp);
+        roundedImage.setCircular(true);
+        dpView.setImageDrawable(roundedImage);
     }
 
 }

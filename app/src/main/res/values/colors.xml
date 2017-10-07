@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>-->
     <color name="colorPrimary">@color/vistara_purple</color>
     <color name="colorPrimaryDark">@color/vistara_purple_dark</color>
-    <color name="colorAccent">@color/vistara_accent</color>
+    <color name="colorAccent">#FF4081</color>
 
     <color name="vistara_purple">#673ab7</color>
     <color name="vistara_purple_dark">#512da8</color>

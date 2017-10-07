@@ -1,6 +1,7 @@
 package crayon.airtime;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,70 +10,50 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
+
 import crayon.airtime.cardsviewpager.CardFragmentPagerAdapter;
 import crayon.airtime.cardsviewpager.CardItem;
 import crayon.airtime.cardsviewpager.CardPagerAdapter;
 import crayon.airtime.cardsviewpager.ShadowTransformer;
+import crayon.airtime.fragments.ChatsFragment;
+import crayon.airtime.fragments.InterestGroupsFragment;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener  {
+public class HomeActivity extends AppCompatActivity {
 
-    private ViewPager mViewPager;
-
-    private CardPagerAdapter mCardAdapter;
-    private ShadowTransformer mCardShadowTransformer;
-    private CardFragmentPagerAdapter mFragmentCardAdapter;
-    private ShadowTransformer mFragmentCardShadowTransformer;
-
-    private boolean mShowingFragments = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mButton = (Button) findViewById(R.id.cardTypeBtn);
-        ((CheckBox) findViewById(R.id.checkBox)).setOnCheckedChangeListener(this);
-        mButton.setOnClickListener(this);
 
-        mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem(R.string.title_1, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));
-        mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
-                dpToPixels(2, this));
-
-        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
-
-        mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-        mViewPager.setOffscreenPageLimit(3);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (!mShowingFragments) {
-            mButton.setText("Views");
-            mViewPager.setAdapter(mFragmentCardAdapter);
-            mViewPager.setPageTransformer(false, mFragmentCardShadowTransformer);
-        } else {
-            mButton.setText("Fragments");
-            mViewPager.setAdapter(mCardAdapter);
-            mViewPager.setPageTransformer(false, mCardShadowTransformer);
+        if (findViewById(R.id.contentContainer) != null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.contentContainer, new
+                    ChatsFragment()).commit();
         }
 
-        mShowingFragments = !mShowingFragments;
+
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_home) {
+                    if (findViewById(R.id.contentContainer) != null) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id
+                                .contentContainer, new ChatsFragment()).commit();
+                    }
+//                    // The tab with id R.id.tab_favorites was selected,
+//                    // change your content accordingly.
+                } else if (tabId == R.id.tab_groups) {
+                    if (findViewById(R.id.contentContainer) != null) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id
+                                .contentContainer, new InterestGroupsFragment()).commit();
+                    }
+                }
+            }
+        });
     }
 
-    public static float dpToPixels(int dp, Context context) {
-        return dp * (context.getResources().getDisplayMetrics().density);
-    }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        mCardShadowTransformer.enableScaling(b);
-        mFragmentCardShadowTransformer.enableScaling(b);
-    }
 }
