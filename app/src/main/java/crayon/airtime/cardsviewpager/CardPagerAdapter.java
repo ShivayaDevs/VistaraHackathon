@@ -1,6 +1,7 @@
 package crayon.airtime.cardsviewpager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -10,12 +11,14 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import crayon.airtime.ChatActivity;
 import crayon.airtime.R;
 
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
@@ -85,12 +88,22 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 //        titleTextView.setText(item.getTitle());
 //        contentTextView.setText(item.getText());
         ImageView dpView = view.findViewById(R.id.dpView);
-        Bitmap dp = BitmapFactory.decodeResource(context.getResources(), R.mipmap
-                .ic_launcher_round);
+        Bitmap dp = BitmapFactory.decodeResource(context.getResources(), R.drawable.boy);
         RoundedBitmapDrawable roundedImage = RoundedBitmapDrawableFactory.create(context
                 .getResources(), dp);
         roundedImage.setCircular(true);
         dpView.setImageDrawable(roundedImage);
+
+        final Button bt_wave = (Button) view.findViewById(R.id.button_wave);
+        bt_wave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bt_wave.getText().toString().equals("Waved")) {
+                    context.startActivity(new Intent(context, ChatActivity.class));
+                }
+                bt_wave.setText("Waved");
+            }
+        });
     }
 
 }

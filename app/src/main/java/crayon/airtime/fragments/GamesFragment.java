@@ -1,22 +1,27 @@
 package crayon.airtime.fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import crayon.airtime.GroupChatActivity;
 import crayon.airtime.R;
 
-public class InterestGroupsFragment extends Fragment {
+/**
+ * Created by yash on 8/10/17.
+ */
+
+public class GamesFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
@@ -26,7 +31,7 @@ public class InterestGroupsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_interest_groups, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_games, container, false);
 
         recyclerView = rootView.findViewById(R.id.recycler_groups);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -34,66 +39,75 @@ public class InterestGroupsFragment extends Fragment {
 
         recyclerView.setAdapter(myAdapter);
 
-        getActivity().setTitle("Interest Groups");
+        getActivity().setTitle("Multiplayer Games");
 
         return rootView;
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        private ArrayList<String> namesList = new ArrayList<>();
+        int[] imgRes = null;
+
+        private ArrayList<String> gameNamesList = new ArrayList<>();
         private ArrayList<Integer> numMembers = new ArrayList<>();
 
         MyAdapter() {
-            namesList.add("Bollywood fans");
-            numMembers.add(6);
 
-            namesList.add("Music");
+            imgRes = new int[]{R.drawable.ic_light_bulb,
+                    R.drawable.ic_paint_roll,
+                    R.drawable.ic_paint_brush,
+                    R.drawable.ic_vector
+            };
+
+            gameNamesList.add("Think Quiz");
+            numMembers.add(12);
+
+            gameNamesList.add("Paint and Roll");
             numMembers.add(3);
 
-            namesList.add("Dance");
-            numMembers.add(5);
+            gameNamesList.add("Flowing colors");
+            numMembers.add(7);
 
-            namesList.add("Politics");
-            numMembers.add(13);
+            gameNamesList.add("Pen starz");
+            numMembers.add(10)
+            ;
         }
 
         @Override
         public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             MyViewHolder viewHolder = new MyViewHolder(getLayoutInflater().inflate(R.layout
-                    .list_item_groups, parent, false));
+                    .list_item_game, parent, false));
             return viewHolder;
+
         }
 
         @Override
         public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
-            holder.groupName.setText(namesList.get(position));
+            holder.groupName.setText(gameNamesList.get(position));
             holder.membersCount.setText(numMembers.get(position) + " members");
-            holder.pos = position;
+            holder.imageView.setImageResource(imgRes[position]);
         }
 
         @Override
         public int getItemCount() {
-            return namesList.size();
+            return gameNamesList.size();
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            ImageView imageView;
             TextView groupName;
             TextView membersCount;
-            int pos;
 
             MyViewHolder(View v) {
                 super(v);
-                groupName = v.findViewById(R.id.groupNameTv);
+                imageView = v.findViewById(R.id.gameIconView);
+                groupName = v.findViewById(R.id.gameNameTv);
                 membersCount = v.findViewById(R.id.membersCountTv);
-                v.setOnClickListener(this);
+
             }
 
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), GroupChatActivity.class));
-            }
         }
     }
 
 }
+

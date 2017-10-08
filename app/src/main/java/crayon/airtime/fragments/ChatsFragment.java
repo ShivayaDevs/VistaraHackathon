@@ -30,7 +30,7 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chats, container, false);
-
+        getActivity().setTitle("Look Around");
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 
         mCardAdapter = new CardPagerAdapter(getActivity());

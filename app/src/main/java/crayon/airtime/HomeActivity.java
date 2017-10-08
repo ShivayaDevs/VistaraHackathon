@@ -18,6 +18,7 @@ import crayon.airtime.cardsviewpager.CardItem;
 import crayon.airtime.cardsviewpager.CardPagerAdapter;
 import crayon.airtime.cardsviewpager.ShadowTransformer;
 import crayon.airtime.fragments.ChatsFragment;
+import crayon.airtime.fragments.GamesFragment;
 import crayon.airtime.fragments.InterestGroupsFragment;
 
 public class HomeActivity extends AppCompatActivity {
@@ -43,9 +44,23 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id
                                 .contentContainer, new ChatsFragment()).commit();
                     }
-//                    // The tab with id R.id.tab_favorites was selected,
-//                    // change your content accordingly.
                 } else if (tabId == R.id.tab_groups) {
+                    if (findViewById(R.id.contentContainer) != null) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id
+                                .contentContainer, new InterestGroupsFragment()).commit();
+                    }
+                } else if (tabId == R.id.tab_game) {
+                    if (findViewById(R.id.contentContainer) != null) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id
+                                .contentContainer, new GamesFragment()).commit();
+                    }
+                    //TODO: REST AND MORE
+                }else if (tabId == R.id.tab_sleep) {
+                    if (findViewById(R.id.contentContainer) != null) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id
+                                .contentContainer, new InterestGroupsFragment()).commit();
+                    }
+                }else if (tabId == R.id.tab_more) {
                     if (findViewById(R.id.contentContainer) != null) {
                         getSupportFragmentManager().beginTransaction().replace(R.id
                                 .contentContainer, new InterestGroupsFragment()).commit();

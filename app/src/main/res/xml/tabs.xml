@@ -1,21 +1,24 @@
 <tabs>
-    <tab
-        id="@+id/tab_game"
-        icon="@drawable/ic_gamepad_black_24dp"
-        title="Gaming" />
 
     <tab id="@+id/tab_home"
         icon="@drawable/ic_home_black_24dp"
         title="Home"/>
 
     <tab
+        id="@+id/tab_game"
+        icon="@drawable/ic_gamepad_black_24dp"
+        title="Gaming" />
+
+    <tab
         id="@+id/tab_groups"
         icon="@drawable/ic_group_black_24dp"
         title="Groups" />
+
     <tab
         id="@+id/tab_sleep"
         icon="@drawable/ic_sleep_black_24dp"
         title="Rest" />
+
     <tab
         id="@+id/tab_more"
         icon="@drawable/ic_more_horiz_black_24dp"
